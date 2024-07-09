@@ -1,42 +1,123 @@
-from math import sqrt, sin, cos, tan
+from math import sqrt, sin, cos, tan, radians
 from tkinter import Label
 
+operadores = ['+', '-', '*', '/', '^', '^1/']
 
-def soma(valor1=0, valor2=0):
-  return valor1 + valor2
+def soma(visor:Label):
+  global operadores
+  valor_1 = visor.cget('text')
+  if valor_1[-1] == '+' or valor_1[-1] in operadores:
+    novo_valor = valor_1 + ''
+    visor['text'] = f'{novo_valor}'
+  else:
+    novo_valor = valor_1 + '+'
+    visor['text'] = f'{novo_valor}'
+    
 
-def subtracao(valor1=0, valor2=0):
-  return valor1 - valor2
+def subtracao(visor:Label):
+  global operadores
+  valor_1 = visor.cget('text')
+  if valor_1[-1] == '-' or valor_1[-1] in operadores:
+    novo_valor = valor_1 + ''
+    visor['text'] = f'{novo_valor}'
+  else:
+    novo_valor = valor_1 + '-'
+    visor['text'] = f'{novo_valor}'
 
-def multiplicacao(valor1=0, valor2=0):
-  return valor1 * valor2
+def multiplicacao(visor:Label):
+  global operadores
+  valor_1 = visor.cget('text')
+  if valor_1[-1] == '*' or valor_1[-1] in operadores:
+    novo_valor = valor_1 + ''
+    visor['text'] = f'{novo_valor}'
+  else:
+    novo_valor = valor_1 + '*'
+    visor['text'] = f'{novo_valor}'
 
-def divisao(valor1=0, valor2=1):
-  return valor1 / valor2
+def divisao(visor:Label):
+  global operadores
+  valor_1 = visor.cget('text')
+  if valor_1[-1] == '/' or valor_1[-1] in operadores:
+    novo_valor = valor_1 + ''
+    visor['text'] = f'{novo_valor}'
+  else:
+    novo_valor = valor_1 + '/'
+    visor['text'] = f'{novo_valor}'
 
-def exponenciacao(valor=0, expoente=1):
-  return valor**expoente
+def exponenciacao(visor:Label):
+  global operadores
+  valor_1 = visor.cget('text')
+  if valor_1[-1] == '^' or valor_1[-1] in operadores:
+    novo_valor = valor_1 + ''
+    visor['text'] = f'{novo_valor}'
+  else:
+    novo_valor = valor_1 + '^'
+    visor['text'] = f'{novo_valor}'
 
-def raiz_quadrada(valor=1):
-  return sqrt(valor)
+def raiz_quadrada(visor:Label):
+  try:
+    valor = visor.cget('text')
+    numero = float(valor)
+    resultado = sqrt(numero)
+    visor['text'] = f'{resultado}'
+  except ValueError:
+    pass
 
-def raiz_nesima(valor=0, indice=1):
-  return valor ** (1/indice)
+def raiz_nesima(visor:Label):
+  global operadores
+  valor_1 = visor.cget('text')
+  if valor_1[-1] == '^1/' or valor_1[-1] in operadores:
+    novo_valor = valor_1 + ''
+    visor['text'] = f'{novo_valor}'
+  else:
+    novo_valor = valor_1 + '^1/'
+    visor['text'] = f'{novo_valor}'
 
-def seno(valor=0):
-  return sin(valor)
+def seno(visor:Label):
+  try:
+    valor = visor.cget('text')
+    numero = float(valor)
+    numero = radians(numero)
+    resultado = sin(numero)
+    visor['text'] = f'{resultado}'
+  except ValueError:
+    pass
 
-def cosseno(valor=0):
-  return cos(valor)
+def cosseno(visor:Label):
+  try:
+    valor = visor.cget('text')
+    numero = float(valor)
+    numero = radians(numero)
+    resultado = cos(numero)
+    visor['text'] = f'{resultado}'
+  except ValueError:
+    pass
 
-def tangente(valor=0):
-  return tan(valor)
+def tangente(visor:Label):
+  try:
+    valor = visor.cget('text')
+    numero = float(valor)
+    numero = radians(numero)
+    resultado = tan(numero)
+    visor['text'] = f'{resultado}'
+  except ValueError:
+    pass
 
-def mudar_sinal(valor=1):
-  return -(valor)
+def mudar_sinal(visor:Label):
+  try:
+    valor = visor.cget('text')
+    numero = float(valor)
+    resultado = -numero
+    visor['text'] = f'{resultado}'
+  except ValueError:
+    pass
 
 def limpa_visor(visor:Label):
-  visor.config(text='0')
+  texto = visor.cget('text')
+  if len(texto) <= 1:
+    visor.config(text='0')
+  else:
+    visor.config(text=f'{texto[:-1]}')
 
 def mostra_numeros(numero:int, visor:Label):
   match str(numero):
@@ -113,14 +194,16 @@ def mostra_numeros(numero:int, visor:Label):
     case _:
       visor['text'] = 'Error'
 
+def mostra_ponto(ponto:str, visor:Label):
+  texto_atual = visor.cget('text')
+  if '.' in texto_atual:
+    texto_novo = texto_atual + ''
+    visor['text'] = texto_novo
+  else:
+    texto_novo = texto_atual + ponto
+    visor['text'] = texto_novo
+
 def igual():
   pass
-
-def ponto_para_virgula():
-  pass
-
-def virgula_para_ponto():
-  pass
-
 
 # SDG
